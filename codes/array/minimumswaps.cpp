@@ -1,61 +1,48 @@
 #include <iostream>
-using std::cin;
-using std::cout;
-using std::endl;
-using std::swap;
+#include <vector>
+#include <algorithm>
+using namespace std;
 
-int checkSwaps(long int* arr, long int size) {
-	int i = 0;
-	int j = size - 1;
-	int count = 0;
+int minSwaps(int a[], int n) {
+    pair<int, int> pos[100000];
 
-	while (i < j) {
-		if (arr[i] < arr[j]) {
-			++i;
-		}
-		else if (arr[i] == arr[j]) {
-			++i;
-		}
-		else {
-			swap(arr[i], arr[j]);
-			++count;
-			if (i == j - 1) {
-				i = 0;
-				--j;
-			}
-			else {
-				++i;
-				--j;
-			}
-		}
-		if (i == j) {
-			i = 0;
-			if (arr[i] > arr[j]) {
-				j = j;
-			}
-			else {
-				--j;
-			}
-		}
-	}
+    for (int i = 0; i < n; i++) {
+        pos[i].first = a[i];
+        pos[i].second = i;
+    }
+    vector<bool> vis(n, false);
+    sort(pos, pos + n);
+    int ans = 0;
+    for (int i = 0; i < n; i++) {
 
-	return count;
+        if (vis[i] || pos[i].second == i) continue;
+        int cycle = 0;
+        int j = i;
+        while (!vis[j]) {
+            vis[j] = 1;
+            j = pos[j].second;
+            cycle++;
+        }
+        if (cycle > 0) {
+            ans += (cycle - 1);
+        }
+
+    }
+    return ans;
 }
 
 int main() {
-	long int size = 0;
+    int siz = 0;
 
-	cin >> size;
+    cin >> siz;
 
-	long int* arr{ new long int[size] { 0 } };
+    int* arr{ new int[siz] { 0 } };
 
-	for (int i = 0; i < size; ++i) {
-		cin >> arr[i];
-	}
+    for (int i = 0; i < siz; ++i) {
+        cin >> arr[i];
+    }
 
-	cout << checkSwaps(arr, size) << endl;
+    cout << minSwaps(arr, siz) << endl;
 
-	delete[] arr;
-
-	return 0;
+    return 0;
 }

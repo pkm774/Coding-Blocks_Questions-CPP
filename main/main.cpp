@@ -1,24 +1,40 @@
 #include <iostream>
+#include <cmath>
 
-using namespace std;
+using std::cin;
+using std::cout;
+using std::endl;
 
-int main(){
-    int i=0,n,arr[10];
-    int largest;
-    cout<<"Enter total elements of array:"<<" ";
-    cin>>n;
-    for(i=0;i<n;++i){
-        cout<<"Enter element no "<<i+1<<":";
-        cin>>arr[i];
-        largest=arr[i];
-    }
-    while(i<n){
-        if(arr[i]>largest){
-            largest=arr[i];
+class Solution {
+public:
+    static bool isPalindrome(int x) {
+        int mod = 0;
+        long long newnum = 0;
+        int input = x;
+
+        while(input > 0){
+            mod = input% 10;
+            newnum = (newnum * 10) + mod;
+            input = input / 10;
         }
-        i++;
-    }
-    cout<<"Largest value is :"<<largest;
 
+        if(newnum == x){
+            return true;
+        }else{
+            return false;
+        }
+    }
+};
+
+
+int main()
+{
+    int num = 0;
+    cin >> num;
+    if(Solution::isPalindrome(num)){
+        cout<<"true";
+    }else{
+        cout<<"false";
+    }
     return 0;
 }

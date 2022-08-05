@@ -1,6 +1,13 @@
+#include <iostream>
+#include <cmath>
+
+using std::cin;
+using std::cout;
+using std::endl;
+
 class Solution {
 public:
-    bool isPalindrome(int x) {
+    static bool isPalindrome(int x) {
         int mod = 0;
         long long newnum = 0;
         int input = x;
@@ -18,3 +25,16 @@ public:
         }
     }
 };
+
+
+int main()
+{
+    int num = 0;
+    cin >> num;
+    if(Solution::isPalindrome(num)){
+        cout<<"true";
+    }else{
+        cout<<"false";
+    }
+    return 0;
+}

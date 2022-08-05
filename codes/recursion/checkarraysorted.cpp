@@ -4,54 +4,55 @@ using std::cin;
 using std::cout;
 using std::endl;
 
-// From left
-bool checksorted(int* arr, int size) {
+void allindex(int* arr, int size, int target, int i) {
 	//base case
-	if (size == 1) {
-		return true;
+	if (i == size) {
+		return;
 	}
 
 	//recursion case
-	if (arr[0] <= arr[1] && checksorted(arr + 1, size - 1)) {
-		return true;
+	if (arr[i] == target) {
+		cout << i << ' ';
 	}
 
-	return false;
+	allindex(arr, size, target, i + 1);
 }
 
+int firstindex(int* arr, int size, int target, int i) {
 
-// From right
-bool checksorted2(int* arr, int size) {
 	//base case
-	if (size == 1) {
-		return true;
+	if (i == size) {
+		return 0;
 	}
 
 	//recursion case
-	if (arr[size - 2] <= arr[size - 1] && checksorted2(arr, size - 1)) {
-		return true;
-	};
-
-	return false;
+	if (arr[i] == target) {
+		return i;
+	}
+	else {
+		return firstindex(arr, size, target, i + 1);
+	}
 }
 
-// Checking by increasing index
-bool checksorted3(int* arr, int size, int i) {
+int lastindex(int* arr, int size, int target, int i) {
+
 	//base case
-	if (i == size - 1) {
-		return 1;
+	if (i < 0) {
+		return 0;
 	}
 
 	//recursion case
-	if (arr[i] <= arr[i + 1] && checksorted3(arr, size, i + 1)) {
-		return true;
-	};
-
-	return false;
+	if (arr[i - 1] == target) {
+		return i - 1;
+	}
+	else {
+		return lastindex(arr, size, target, i - 1);
+	}
 }
 
 int main() {
-	int size = 0;
+	int size = 0, target = 0;
+	int findex = 0, lindex = 0;
 
 	cin >> size;
 
@@ -61,12 +62,17 @@ int main() {
 		cin >> arr[i];
 	}
 
-	if (checksorted3(arr, size, 0)) {
-		cout << "Sorted" << endl;
-	}
-	else {
-		cout << "Unsorted" << endl;
-	}
+	cin >> target;
+
+	// Check for existance and print every index number
+	allindex(arr, size, target, 0);
+	cout << endl;
+
+	//for first && last index number
+	cout << "First index found at " << firstindex(arr, size, target, 0) << endl;
+	cout << "Last index found at " << lastindex(arr, size, target, size) << endl;
+
+	delete arr[];
 
 	return 0;
 }

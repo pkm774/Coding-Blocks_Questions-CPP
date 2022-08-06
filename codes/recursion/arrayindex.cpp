@@ -22,7 +22,7 @@ int firstindex(int* arr, int size, int target, int i) {
 
 	//base case
 	if (i == size) {
-		return 0;
+		return -1;
 	}
 
 	//recursion case
@@ -38,7 +38,7 @@ int lastindex(int* arr, int size, int target, int i) {
 
 	//base case
 	if (i < 0) {
-		return 0;
+		return -1;
 	}
 
 	//recursion case
@@ -52,7 +52,6 @@ int lastindex(int* arr, int size, int target, int i) {
 
 int main() {
 	int size = 0, target = 0;
-	int findex = 0, lindex = 0;
 
 	cin >> size;
 

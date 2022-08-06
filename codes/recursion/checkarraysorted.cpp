@@ -4,55 +4,61 @@ using std::cin;
 using std::cout;
 using std::endl;
 
-void allindex(int* arr, int size, int target, int i) {
+// Checking form first index
+// Forward Direction or Acending order
+// Index are modified
+bool checkSorted_1(int* arr, int size) {
+
 	//base case
-	if (i == size) {
-		return;
+	if (size == 1) {
+		return true;
 	}
 
 	//recursion case
-	if (arr[i] == target) {
-		cout << i << ' ';
+	if (arr[0] <= arr[1] && checkSorted_1(arr + 1, size - 1)) {
+		return true;
 	}
 
-	allindex(arr, size, target, i + 1);
+	return false;
 }
 
-int firstindex(int* arr, int size, int target, int i) {
+// Checking from last lastindex
+// Backward Direction or Decending Order
+// Index are modified
+bool checkSorted_2(int* arr, int size) {
 
 	//base case
-	if (i == size) {
-		return 0;
+	if (size == 1) {
+		return true;
 	}
 
 	//recursion case
-	if (arr[i] == target) {
-		return i;
+	if (arr[size - 2] <= arr[size - 1] && checkSorted_2(arr, size-1)) {
+		return true;
 	}
-	else {
-		return firstindex(arr, size, target, i + 1);
-	}
+
+	return false;
 }
 
-int lastindex(int* arr, int size, int target, int i) {
+// Checking in acending order but without modifing index
+// Variable i will start from first index i.e, 0
+int checkSorted_3(int* arr, int size, int i) {
 
 	//base case
-	if (i < 0) {
-		return 0;
+	if (i == size - 1) {
+		return true;
 	}
 
 	//recursion case
-	if (arr[i - 1] == target) {
-		return i - 1;
+	if (arr[i] <= arr[i + 1] && checkSorted_3(arr, size, i + 1)) {
+		return true;
 	}
-	else {
-		return lastindex(arr, size, target, i - 1);
-	}
+
+	return false;
 }
 
 int main() {
-	int size = 0, target = 0;
-	int findex = 0, lindex = 0;
+	int size = 0;
 
 	cin >> size;
 
@@ -62,17 +68,14 @@ int main() {
 		cin >> arr[i];
 	}
 
-	cin >> target;
+	if(checkSorted_3(arr, size, 0)){
+		cout << "true" << endl;
+	}
+	else {
+		cout << "false" << endl;
+	}
 
-	// Check for existance and print every index number
-	allindex(arr, size, target, 0);
-	cout << endl;
-
-	//for first && last index number
-	cout << "First index found at " << firstindex(arr, size, target, 0) << endl;
-	cout << "Last index found at " << lastindex(arr, size, target, size) << endl;
-
-	delete arr[];
+	delete[] arr;
 
 	return 0;
 }

@@ -7,9 +7,7 @@ using std::string;
 #include <string>
 
 int countSubstrings(string s) {
-	auto len = s.length();
-	cout<<
-	return len;
+	
 }
 
 int main() {

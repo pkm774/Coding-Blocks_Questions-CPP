@@ -20,6 +20,7 @@ int binarySearch(int arr[], int l, int r, int x)
     }
     return -1;
 }
+
 int main(void)
 {
     int n;
@@ -31,7 +32,6 @@ int main(void)
     int num;
     cin >> num;
     int result = binarySearch(arr, 0, n-1, num);
-    (result == -1)? printf("%d", -1)
-            : printf("%d",result);
+    (result == -1)? printf("%d", -1) : printf("%d",result);
     return 0;
 }

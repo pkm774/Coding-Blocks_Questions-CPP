@@ -12,7 +12,7 @@ int Binary_Search_Recursion(int* arr, int key, int low, int high) {
 	if (low <= high) {
 		int mid = (low + high) / 2;
 		if (arr[mid] == key) {
-			return mid;
+			return mid + 1;
 		}
 		else if (arr[mid] > key) {
 			return Binary_Search_Recursion(arr, key, low, mid - 1);

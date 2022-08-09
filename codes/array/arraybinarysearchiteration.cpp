@@ -12,7 +12,7 @@ int Binary_Search_Iteration(int* arr, int key, int low, int high) {
 	while (low <= high) {
     int mid = (low + high) / 2;
 		if (arr[mid] == key) {
-			return mid;
+			return mid + 1;
 		}
 		else if (arr[mid] > key) {
 			high = mid - 1;

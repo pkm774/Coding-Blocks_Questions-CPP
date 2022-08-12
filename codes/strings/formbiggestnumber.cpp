@@ -1,47 +1,56 @@
 #include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
 
-using namespace std;
+#include <cstring>
+using std::string;
 
-#define FIO ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
-#define ll long long
-#define MOD 1000000007
-#define mod 9982444353
-
-void solve()
+void form_biggest_number()
 {
-    int lens;
-    cin >> lens;
-    string* vals{ new string[lens] {""} };
-    for (int i = 0; i < lens; i++) cin >> vals[i];
-    for (int i = 0; i < lens; i++)
-    {
-        for (int j = i + 1; j < lens; j++)
-        {
+    int total = 0;
 
-            if (vals[i] + vals[j] < vals[j] + vals[i])
+    cin >> total;
+
+    string* arr{ new string[total] {""} };
+
+    for (int i = 0; i < total; i++) {
+        cin >> arr[i];
+    }
+
+    for (int i = 0; i < total; i++)
+    {
+        for (int j = i + 1; j < total; j++)
+        {
+            if (arr[i] + arr[j] < arr[j] + arr[i])
             {
-                string temp = vals[i];
-                vals[i] = vals[j];
-                vals[j] = temp;
-                //cout<<vals[i] <<" "<<vals[j]<<endl;
+                string temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
             }
         }
     }
-    //for(int i = 0; i < lens; i++) cout << vals[i]<<" ";
+
     string rets = "";
-    for (int i = 0; i < lens; i++) rets += vals[i];
+    for (int i = 0; i < total; i++) {
+        rets += arr[i];
+    }
+
     cout << rets << endl;
 
+    delete[] arr;
 }
 
 int main()
 {
-    FIO;
-    ll t;
-    cin >> t;
-    while (t--)
+    long long test = 0;
+
+    cin >> test;
+
+    while (test--)
     {
-        solve();
+        form_biggest_number();
     }
+
     return 0;
 }

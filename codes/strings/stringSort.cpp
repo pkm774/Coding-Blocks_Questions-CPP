@@ -1,35 +1,51 @@
 #include<iostream>
+using std::cin;
+using std::cout;
+using std::endl;
 
-using namespace std;
+#include <cstring>
+using std::string;
 
 bool comp(string a, string b) {
-	if (a.size() <= b.size() && b.substr(0, a.size()) == a) {
+	if ((a.size() <= b.size()) && (b.substr(0, a.size())) == a) {
 		return false;
 	}
-	else if (b.size() <= a.size() && a.substr(0, b.size()) == b) {
+	else if ((b.size() <= a.size()) && (a.substr(0, b.size())) == b) {
 		return true;
 	}
 	else {
 		return a < b;
 	}
 }
-int main() {
-	int t;
-	cin >> t;
-	string full[1001];
-	for (int i = 0; i < t; i++) {
-		cin >> full[i];
-	}
-	for (int i = 0; i < t; i++) {
-		for (int j = i; j < t; j++) {
-			if (!comp(full[i], full[j])) {
-				full[i].swap(full[j]);
 
+int main() {
+	int total = 0;
+
+	cin >> total;
+
+	if (total < 0 || total > 1000) {
+		return 0;
+	}
+
+	string* arr{ new string[1000]{" "}};
+
+	for (int i = 0; i < total; i++) {
+		cin >> arr[i];
+	}
+
+	for (int i = 0; i < total; i++) {
+		for (int j = i; j < total; j++) {
+			if (!comp(arr[i], arr[j])) {
+				arr[i].swap(arr[j]);
 			}
 		}
 	}
-	for (int i = 0; i < t; i++) {
-		cout << full[i] << endl;
+
+	for (int i = 0; i < total; i++) {
+		cout << arr[i] << endl;
 	}
+
+	delete[] arr;
+
 	return 0;
 }

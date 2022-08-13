@@ -2,3 +2,21 @@
 # CLion Directories
 #
 /cmake*
+
+#
+# Executable Binaries
+#
+/OUT/
+/out/
+
+#
+# Generated binaries, programs and plugins
+#
+*.exe
+*.exe~
+*.dll
+
+#
+# vscode configs
+#
+*.json

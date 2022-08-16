@@ -24,7 +24,7 @@ int main()
             }
 
         }
-        else  // for stricly decreasing
+        else  // for stricly increasing
         {
             if(prev >= curr)
             {

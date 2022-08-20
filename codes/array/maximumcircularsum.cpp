@@ -4,44 +4,66 @@ using std::cin;
 using std::cout;
 using std::endl;
 
-// Standard Kadane's algorithm to find maximum subarray sum
-int kadane(int a[], int n)
-{
-    int max_so_far = 0, max_ending_here = 0;
+#include <algorithm>
+using std::max;
+using std::max_element;
 
-    for (int i = 0; i < n; i++)
+// Calculate maximum subarray sum using Kadane algorithm
+int max_contiguous_sum(int* arr, int size)
+{
+    int max_sum = 0, max_sum_calc = 0;
+
+    for (int i = 0; i < size; i++)
     {
-        max_ending_here = max_ending_here + a[i];
-        if (max_ending_here < 0)
-            max_ending_here = 0;
-        if (max_so_far < max_ending_here)
-            max_so_far = max_ending_here;
+        // Add elements of array
+        max_sum_calc = max_sum_calc + arr[i];
+        // Check and save non-negative value
+        max_sum_calc = max(max_sum_calc, 0);
+        // Check and save max of max_sum and max_sum_calc
+        max_sum = max(max_sum, max_sum_calc);
     }
 
-    return max_so_far;
+    // if max sum is 0 then return the largest negative value as answer
+    if (max_sum == 0) {
+        max_sum = *max_element(arr, arr + size);
+    }
+
+    return max_sum;
 }
 
-// The function returns maximum circular contiguous sum in a[]
-int maxCircularSum(int a[], int n)
+// Calculate maximum circular sum
+int maxCircularSum(int* arr, int size)
 {
-    // Case 1: get the maximum sum using standard kadane's algorithm
-    int max_kadane = kadane(a, n);
+    // get the maximum sum using standard kadane's algorithm
+    int max_ctg_sum = max_contiguous_sum(arr, size);
 
-    // Case 2: Now find the maximum sum that includes
-    // corner elements.
-    int max_wrap = 0, i;
-    for (i = 0; i < n; i++)
-    {
-        max_wrap += a[i];     // Calculate array-sum
-        a[i] = -a[i];       // invert the array (change sign)
+    if (max_ctg_sum < 0) {
+        return max_ctg_sum;
     }
 
+    // if max sum is non zero then find the maximum sum that includes
+    // corner elements.
+    int max_wrap_sum = 0;
+    for (int i = 0; i < size; i++)
+    {
+        // Calculate array sum with corner elements
+        max_wrap_sum += arr[i];
+    }
+
+    // invert the sign of the array values
+    for (int i = 0; i < size; i++)
+    {
+        arr[i] = -arr[i];
+    }
+    // Calculate maximum subarray sum with inverted values
+    int max_inv_sum = max_contiguous_sum(arr, size);
+
     // max sum with corner elements will be:
-    // array-sum - (-max subarray sum of inverted array)
-    max_wrap = max_wrap + kadane(a, n);
+    // array_sum = max wrap sum + max subarray sum of inverted array
+    int array_sum = max_wrap_sum + max_inv_sum;
 
     // The maximum circular sum will be maximum of two sums
-    return (max_wrap > max_kadane) ? max_wrap : max_kadane;
+    return (array_sum > max_ctg_sum) ? array_sum : max_ctg_sum;
 }
 
 
@@ -62,6 +84,8 @@ int main()
             cin >> arr[j];
         }
         cout << maxCircularSum(arr, size) << endl;
+        delete[] arr;
     }
     return 0;
 }
+

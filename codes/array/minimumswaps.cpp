@@ -4,15 +4,20 @@
 using namespace std;
 
 int minSwaps(int a[], int n) {
+
     pair<int, int> pos[100000];
 
     for (int i = 0; i < n; i++) {
         pos[i].first = a[i];
         pos[i].second = i;
     }
+
     vector<bool> vis(n, false);
+
     sort(pos, pos + n);
+
     int ans = 0;
+
     for (int i = 0; i < n; i++) {
 
         if (vis[i] || pos[i].second == i) continue;

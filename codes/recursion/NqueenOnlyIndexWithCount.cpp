@@ -13,13 +13,10 @@ void printBoard(int board[20][20], int n) {
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
             if (board[i][j] == 1) {
-                cout << 'Q' << ' ';
-            }
-            else {
-                cout << '_' << ' ';
+                cout << '{' << i + 1 << '-' << j + 1 << '}';
             }
         }
-        cout << endl;
+        cout << ' ';
     }
 }
 
@@ -37,7 +34,7 @@ bool canBePlaced(int board[20][20], int i, int j, int  n) {
 
     // upper left diagonal check
     while (i >= 0 && j >= 0) {
-        if(board[i][j] == 1) {
+        if (board[i][j] == 1) {
             return false;
         }
         --i;
@@ -62,8 +59,6 @@ bool NQueen(int board[20][20], int n, int i) {
     if (i == n) {
         ++total_possiblities;
         printBoard(board, n);
-        // Endl for printing next possible board
-        cout << endl;
         // Return true for printing first possibility
         //return true;
         // Return false for printing all possibility
@@ -98,7 +93,7 @@ int main() {
     // for n = 3 --> 0
 
     NQueen(board, n, 0);
-    cout << endl << "Total Possibilities = " << total_possiblities << endl;
+    cout << endl << total_possiblities << endl;
 
     return 0;
 }

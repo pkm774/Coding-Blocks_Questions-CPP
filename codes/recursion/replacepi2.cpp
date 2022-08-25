@@ -37,6 +37,7 @@ int main()
     int n = 0;
 
     cin >> n;
+    n += 1;
 
     while(n--) {
         string s = " ";

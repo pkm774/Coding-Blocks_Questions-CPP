@@ -10,6 +10,7 @@ void mergeSort(int* arr1, int* arr2, int size1, int size2) {
 	int i = 0, j = 0, k = 0;
 
 	int size3 = size1 + size2;
+
 	int* arr3{ new int [size3] {0} };
 
 	while (i < size1 && j < size2) {
@@ -32,6 +33,8 @@ void mergeSort(int* arr1, int* arr2, int size1, int size2) {
 	for (int k = 0; k < size3; ++k) {
 		cout << arr3[k] << ' ';
 	}
+
+	delete[] arr3;
 }
 
 int main() {
@@ -68,6 +71,8 @@ int main() {
 	sort(arr2, arr2 + size2);
 
 	mergeSort(arr1, arr2, size1, size2);
+
+	delete[] arr1,arr2;
 
 	return 0;
 }

@@ -31,20 +31,38 @@ bool ratINmaze(std::vector<std::vector<char>>& maze, int row, int col,
 	}
 
 	// recursive case
+
+	// else if (maze[i][j] != 'X')
 	sol[i][j] = 1;
 
-	// checking forward path
-	if (j <= col - 2 && maze[i][j + 1] != 'X') {
+	// checking forward path (right move)
+	if (j <= col - 2 && maze[i][j + 1] != 'X' && sol[i][j + 1] != 1) {
 		bool canMoveforward = ratINmaze(maze, row, col, i, j + 1, sol);
 		if (canMoveforward) {
 			return true;
 		}
 	}
 
+	// checking backward path (left move)
+	if (j >= 1 && maze[i][j - 1] != 'X' && sol[i][j - 1] != 1) {
+		bool canMovebackward = ratINmaze(maze, row, col, i, j - 1, sol);
+		if (canMovebackward) {
+			return true;
+		}
+	}
+
 	// checking downward path
-	if (i <= row - 2 && maze[i + 1][j] != 'X') {
+	if (i <= row - 2 && maze[i + 1][j] != 'X' && sol[i + 1][j] != 1) {
 		bool canMovedownward = ratINmaze(maze, row, col, i + 1, j, sol);
 		if (canMovedownward) {
+			return true;
+		}
+	}
+
+	// checking upward path
+	if (i >= 1 && maze[i - 1][j] != 'X' && sol[i - 1][j] != 1) {
+		bool canMoveupward = ratINmaze(maze, row, col, i - 1, j, sol);
+		if (canMoveupward) {
 			return true;
 		}
 	}
@@ -70,7 +88,17 @@ int main() {
 	std::vector<std::vector<int>> sol(row, colm2);
 
 	if (!ratINmaze(maze, row, col, 0, 0, sol))
-		std::cout << -1 << std::endl;
+		std::cout << "NO PATH FOUND" << std::endl;
 
 	return 0;
 }
+
+// TEST CASE
+// 7 8
+// OOOXOOOX
+// OXXXOXOX
+// OOOOOXOX
+// XXXXXXOX
+// XOOOOOOX
+// XOXXXXXX
+// XOOOOOOO

@@ -1,37 +1,53 @@
-#include <stdio.h>
 #include<iostream>
+#include<vector>
+
 using namespace std;
-int binarySearch(int arr[], int l, int r, int x)
+
+int binarySearch(vector<int>& arr, int low, int high, int target)
 {
-    while (l <= r)
+    // either --> while (low<=high) | or
+    while ((high - low) >= 0)
     {
-        int m = l + (r-l)/2;
-        // Check if x is present at mid
-        if (arr[m] == x)
-            return m;
+        int medium = (high + low) / 2;
 
-        // If x greater, ignore left half
-        if (arr[m] < x)
-            l = m + 1;
+        // check if value at medium is equal to target
+        if (arr[medium] == target) {
+            return medium;
+        }
 
-        // If x is smaller, ignore right half
-        else
-            r = m - 1;
+        // check if value at medium is less than target then
+        // low will be medium's next index
+        if (arr[medium] < target) {
+            low = medium + 1;
+        }
+
+        // check if value at medium is greater than target then
+        // high will be medium - 1 index
+        if (arr[medium] > target) {
+            high = medium - 1;
+        }
     }
+
+    // return -1 if value not found
     return -1;
 }
 
 int main(void)
 {
-    int n;
-    cin >> n;
-    int i;
-    int arr[n];
-    for (i = 0; i < n; i++)
+    int size = 0;
+    cin >> size;
+
+    vector<int> arr(size);
+    for (int i = 0; i < size; i++) {
         cin >> arr[i];
-    int num;
-    cin >> num;
-    int result = binarySearch(arr, 0, n-1, num);
-    (result == -1)? printf("%d", -1) : printf("%d",result);
+    }
+
+    int target = 0;
+    cin >> target;
+
+    int result = binarySearch(arr, 0, size - 1, target);
+
+    (result == -1) ? cout << -1 << endl : cout << result << endl;
+
     return 0;
 }

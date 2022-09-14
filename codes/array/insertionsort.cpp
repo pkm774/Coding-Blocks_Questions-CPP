@@ -7,6 +7,8 @@ using std::endl;
 
 
 void InsertionSort(int* arr, int size) {
+	// sorted holds 0th index i.e, first element of array
+	// i holds 1st index i.e, second element of array
 	int sorted = 0, i = 1;
 
 	while (i < size) {

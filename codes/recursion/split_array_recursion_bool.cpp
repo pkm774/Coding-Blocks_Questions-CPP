@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 
-void split_array(std::vector<int>& arr, int index, int &count, int sum, std::vector<bool> checkElement) {
+void split_array(std::vector<int>& arr, int index, int& count, int sum, std::vector<bool> checkElement) {
 
 	// --> base case
 	// Return when index becomes equal to arr.size()
@@ -86,7 +86,7 @@ int main() {
 	int count = 0;
 
 	// Create a boolean vector and fill it with zeroes.
-	std::vector<bool> check element(size, false);
+	std::vector<bool> checkElement(size, false);
 
 	split_array(arr, 0, count, sum, checkElement);
 	std::cout << count << std::endl;

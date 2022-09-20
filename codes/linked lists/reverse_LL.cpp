@@ -37,7 +37,7 @@ void LL_output(node* head) {
 	}
 }
 
-node* ll_reverse(node* head) {
+node* ll_reverse(node*& head) {
 	node* prev = NULL;
 	node* curr = head;
 

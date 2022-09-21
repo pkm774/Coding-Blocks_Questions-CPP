@@ -57,6 +57,8 @@ node* merge_sort_LL(node* head1, node* head2) {
 	else if(!head2) {
 		return head1;
 	}
+	// If both of them are not not empty then proceed 
+    // further for sorting.
 	else {
 		// Create a temporary head storing NULL at begenning
 		// it will serve the purpose of head of the newly generated LL

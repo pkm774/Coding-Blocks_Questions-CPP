@@ -37,20 +37,6 @@ void LL_output(node* head) {
 	}
 }
 
-/* Function to reverse the linked list */
-void printReverse(node* head)
-{
-	// Base case
-	if (head == NULL)
-		return;
-
-	// print the list after head node
-	printReverse(head->next);
-
-	// After everything else is printed, print head
-	std::cout << head->data << " ";
-}
-
 node* ll_reverse(node*& head) {
 	node* prev = NULL;
 	node* curr = head;
@@ -66,28 +52,45 @@ node* ll_reverse(node*& head) {
 	return head;
 }
 
-// Function to Delete nodes which have
-// smaller value node on left side.
-void delNodes(struct node* head)
+// Function to print Linked List in reverse order
+void printReverse(node* head)
 {
-	// Set current to head and temp to null
-	struct node* current = head;
-	struct node* temp = NULL;
+	// Base case
+	if (head == NULL) {
+		return;
+	}
 
-	// Initialize max, used for comparing
-	struct node* maxnode = head;
+	// print the list after head node
+	printReverse(head->next);
 
-	while (current && current->next) {
-		// If current is greater than max,
-		// then update max and move current
-		if (current->next->data >= maxnode->data) {
-			current = current->next;
-			maxnode = current;
+	// After everything else is printed, print head
+	std::cout << head->data << " ";
+}
+
+// Function to Delete the nodes having
+// smaller value node at the left side.
+void delete_smaller_left_node(node* head) {
+	// Set current to head and temp to null.
+	node* curr = head;
+	// Initialize max, used for comparing with maximum node.
+	node* max = head;
+
+	// Iterate till link list ends.
+	while (curr && curr->next) {
+		// If current's next node data is greater than max data,
+		// then move current to it's next node and maximum will
+		// become current (current is the largest element till now).
+		if (curr->next->data >= max->data) {
+			curr = curr->next;
+			max = curr;
 		}
-		// If current is smaller than max, then delete current
+		// If current's next node data is smaller than current
+		// then point temp to that node, make current's next to
+		// point temp's next, and free temp from memory.
 		else {
-			temp = current->next;
-			current->next = temp->next;
+			// Temp node for deleting nodes.
+			node* temp = curr->next;
+			curr->next = temp->next;
 			free(temp);
 		}
 	}
@@ -101,13 +104,13 @@ int main() {
 	node* tail = NULL;
 	createLL(head, tail, size);
 
-	// Reverse current node to reduce complexity
+	// Reverse the input Linked List to reduce complexity.
 	ll_reverse(head);
 
-	// Delete nodes.
-	delNodes(head);
+	// Delete smaller nodes.
+	delete_smaller_left_node(head);
 
-	// Use recursion to print nodes in reverse
+	// Use recursion to print nodes in reverse order.
 	printReverse(head);
 	std::cout << std::endl;
 

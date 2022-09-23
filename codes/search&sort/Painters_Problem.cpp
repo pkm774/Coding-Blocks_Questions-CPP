@@ -1,9 +1,9 @@
 #include <iostream>
 #include <vector>
 
-int checkTimePossible(std::vector<long int>& arr, long int mid, int n)
+int check_Possible_Time(std::vector<long int>& arr, long int mid, int n)
 {
-    int res = 1, window = 0;
+    int window = 0, time = 1;
     for (int i = 0; i < n; i++)
     {
         if (arr[i] + window <= mid)
@@ -12,19 +12,21 @@ int checkTimePossible(std::vector<long int>& arr, long int mid, int n)
         }
         else
         {
-            res++;
+            time++;
             window = arr[i];
         }
     }
-    return res;
+    return time;
 }
 
 int main()
 {
-    int k = 0, n = 0;
+    // Input N K T
+    int n = 0, k = 0;
     long int t = 0;
     std::cin >> n >> k >> t;
 
+    // Start and end for binary search.
     long int start = 0, end = 0;
     std::vector<long int> arr(n);
     for (int i = 0; i < n; i++)
@@ -34,14 +36,15 @@ int main()
         start = std::max(start, arr[i]);
     }
 
+    // Binary search implementation
     long int mid = 0, ans = start;
     while (start <= end)
     {
         mid = (start + end) / 2;
-        if (k >= checkTimePossible(arr, mid, n))
+        if (k >= check_Possible_Time(arr, mid, n))
         {
-            end = mid - 1;
             ans = mid;
+            end = mid - 1;
         }
         else
         {

@@ -2,10 +2,9 @@
 #include <algorithm>
 #include <vector>
 
-bool isPossible(std::vector<int>& books, int n, int break_value, int m)
+bool is_Assign_Possible(std::vector<int>& books, int n, int break_value, int m)
 {
-    int studentUsed = 1;
-    int noOfPagesReading = 0;
+    int studentUsed = 1, noOfPagesReading = 0;
     for (int i = 0; i < n; i++)
     {
         if (noOfPagesReading + books[i] > break_value)
@@ -35,29 +34,29 @@ int main()
         int n, m;
         std::cin >> n >> m;
 
-        std::vector<int> books(n);
-        int end = 0;
-
         if (n < m)
         {
             std::cout << -1 << std::endl;
             continue;
         }
 
+        std::vector<int> books(n);
+        int end = 0;
         for (int i = 0; i < n; i++)
         {
             std::cin >> books[i];
             end += books[i];
         }
 
-        int start = books[n - 1], mid = 0;
-
+        // Binary search
+        int start = books[n - 1];
+        int mid = 0;
         int ans = end;
 
         while (start <= end)
         {
             mid = (start + end) / 2;
-            if (isPossible(books, n, mid, m))
+            if (is_Assign_Possible(books, n, mid, m))
             {
                 ans = mid;
                 end = mid - 1;

@@ -20,3 +20,7 @@
 # vscode configs
 #
 *.json
+.vscode/*.json
+.vscode/configurationCache.log
+.vscode/dryrun.log
+.vscode/targets.log

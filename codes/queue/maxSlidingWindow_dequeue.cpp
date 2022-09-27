@@ -16,25 +16,28 @@ public:
 
         for (int i = 0; i < nums.size(); ++i)
         {
-            while (!dq.empty() and -dq.front() >= k)
+            while ((!dq.empty()) and (i-dq.front() >= k))
             {
                 dq.pop_front();
             }
 
-            while (!dq.empty() and nums[dq.back()] <= nums[i])
+            while ((!dq.empty()) and (nums[dq.back()] <= nums[i]))
             {
                 dq.pop_back();
             }
+
             dq.push_back(i);
+
             if (i >= k - 1)
             {
                 ans.push_back(nums[dq.front()]);
             }
         }
 
+        // return answer vector.
         return ans;
     }
 };
 
-// 
+//
 // k=3

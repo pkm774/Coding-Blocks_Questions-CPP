@@ -112,6 +112,7 @@ TreeNode* buildtree_levelOrder() {
 	return root;
 }
 
+// Function to print tree in pre-oRDER
 void preOrderPrint(TreeNode* root) {
 	// --> base case
 	// When root == NULL
@@ -128,6 +129,7 @@ void preOrderPrint(TreeNode* root) {
 	preOrderPrint(root->right);
 }
 
+// Function to print tree in in-oRDER
 void inOrderPrint(TreeNode* root) {
 	// --> base case
 	// When root == NULL
@@ -144,6 +146,7 @@ void inOrderPrint(TreeNode* root) {
 	inOrderPrint(root->right);
 }
 
+// Function to print tree in post-oRDER
 void postOrderPrint(TreeNode* root) {
 	// --> base case
 	// When root == NULL
@@ -158,6 +161,27 @@ void postOrderPrint(TreeNode* root) {
 	postOrderPrint(root->right);
 	// Print root node data
 	std::cout << root->val << " ";
+}
+
+int height(TreeNode* root)
+{
+	// --> base case
+	// When root == NULL
+	if (!root) {
+		return 0;
+	}
+
+	/* compute the height of each subtree */
+	int lheight = height(root->left);
+	int rheight = height(root->right);
+
+	/* use the larger one */
+	if (lheight > rheight) {
+		return (lheight + 1);
+	}
+	else {
+		return (rheight + 1);
+	}
 }
 
 int main() {

@@ -5,7 +5,8 @@ using namespace std;
 
 int countDigit(int num)
 {
-	if (num == 0) {
+	if (num == 0)
+	{
 		return 1;
 	}
 	int count = 0;
@@ -17,10 +18,12 @@ int countDigit(int num)
 	return count;
 }
 
-int seperate(long long number) {
+int seperate(long long number)
+{
 	long long newnum = 0;
 	int d = 0;
-	while (number != 0) {
+	while (number != 0)
+	{
 		d = number % 10;
 		newnum = newnum * 10 + d;
 		number /= 10;
@@ -28,12 +31,14 @@ int seperate(long long number) {
 	return newnum;
 }
 
-long long armstrong(long long inputnum, int nsize) {
+long long armstrong(long long inputnum, int nsize)
+{
 	int d = 0;
 	long long armnum = 0, revnum = 0, received = 0;
 	received = inputnum;
 	revnum = seperate(received);
-	while (revnum != 0) {
+	while (revnum != 0)
+	{
 		d = revnum % 10;
 		armnum = armnum + pow(d, nsize);
 		revnum /= 10;
@@ -43,17 +48,22 @@ long long armstrong(long long inputnum, int nsize) {
 
 int main()
 {
-	long long inputnum = 0;
+	long long inputnum = 0, revnum = 0;
 	int nsize = 0;
-	long long revnum = 0;
+
 	cin >> inputnum;
+
 	nsize = countDigit(inputnum);
-	revnum = armstrong( inputnum, nsize);
-	if (revnum == inputnum) {
+	revnum = armstrong(inputnum, nsize);
+
+	if (revnum == inputnum)
+	{
 		cout << "true\n";
 	}
-	else {
+	else
+	{
 		cout << "false\n";
 	}
+
 	return 0;
 }

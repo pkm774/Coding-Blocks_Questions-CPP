@@ -21,7 +21,7 @@ int main() {
         ++j;
     }
 
-    cout << "Largest value is :" << largest;
+    cout << "Largest value is : " << largest;
 
     return 0;
 }

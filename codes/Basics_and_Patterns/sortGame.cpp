@@ -2,7 +2,9 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+
 using namespace std;
+
 class Employee
 {
 public:
@@ -29,13 +31,21 @@ bool operator>(string s1, string s2)
 
     if (index >= min)
     {
-        if (s1.size() > s2.size()) return true;
-        else return false;
+        if (s1.size() > s2.size())
+            return true;
+        else
+            return false;
     }
 
-    if (s1[index] > s2[index]) return true;
-    else return false;
+    if (s1[index] > s2[index])
+    {
+        return true;
+    }
 
+    else
+    {
+        return false;
+    }
 }
 
 bool lol(Employee e1, Employee e2)
@@ -44,16 +54,15 @@ bool lol(Employee e1, Employee e2)
     {
         return true;
     }
-    else
-        if (e1.salary < e2.salary)
-        {
-            return false;
-        }
+    else if (e1.salary < e2.salary)
+    {
+        return false;
+    }
 
     return e2.name > e1.name;
 }
 
-void sort2(vector<Employee>& v)
+void sort2(vector<Employee> &v)
 {
     sort(v.begin(), v.end(), lol);
 }
@@ -84,7 +93,8 @@ int main()
 
     for (int i = 0; i < n; i++)
     {
-        if (v[i].salary < n2) break;
+        if (v[i].salary < n2)
+            break;
 
         cout << v[i].name << " " << v[i].salary << "\n";
     }

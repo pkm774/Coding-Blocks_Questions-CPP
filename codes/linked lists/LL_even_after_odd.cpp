@@ -25,11 +25,11 @@ void LL_input_back(node*& head, node*& tail, int dat) {
 
 // Create LL with  a given size
 void createLL(node*& head, node*& tail, int size) {
-	for (int i = 0; i < size; ++i) {
-		int data = 0;
-		std::cin >> data;
-		LL_input_back(head, tail, data);
-	}
+    int data = 0;
+    for (int i = 0; i < size; ++i) {
+        std::cin >> data;
+        LL_input_back(head, tail, data);
+    }
 }
 
 // Function fo printing LL

@@ -23,11 +23,11 @@ void LL_input_back(node*& head, node*& tail, int dat) {
 }
 
 void createLL(node*& head, node*& tail, int size) {
-	while(size--) {
-		int data = 0;
-		std::cin >> data;
-		LL_input_back(head, tail, data);
-	}
+    int data = 0;
+    for (int i = 0; i < size; ++i) {
+        std::cin >> data;
+        LL_input_back(head, tail, data);
+    }
 }
 
 void LL_output(node* head) {

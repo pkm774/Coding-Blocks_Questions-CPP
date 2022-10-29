@@ -33,7 +33,18 @@ public:
 // Input of root node value will be accepted until -1 get inserted.
 TreeNode* buildtree_preOrder() {
     int data = 0, child = 0;
-    std::cin >> data >> child; // 8 10 1 -1 -1 6 4 -1 -1 7 -1 -1 3 -1 14 13 -1 -1 -1
+    std::cin >> data >> child;
+
+    /* 
+    1 2
+    2 2
+    3 0
+    4 0
+    5 2
+    6 0
+    7 0
+    2
+    */
 
     // Create a root node and populate data
     TreeNode* root = new TreeNode(data);
@@ -56,24 +67,24 @@ TreeNode* buildtree_preOrder() {
     return root;
 }
 
-void sum_at_level_k(TreeNode* root, int inlevel, int level, int& sum) {
+void sum_at_level_k(TreeNode* root, int currlevel, int level, int& sum) {
     // --> base case
     // Check for NULL or
     // if Initial level is greater than current level
-    if (!root || inlevel > level) {
+    if (!root || currlevel > level) {
         return;
     }
 
     // --> task
     // Add root value to sum if
     // Initial level is equal to current level
-    if (inlevel == level) {
+    if (currlevel == level) {
         sum += root->val;
     }
 
     // --> recursive call for left and right childrens
-    sum_at_level_k(root->left, inlevel + 1, level, sum);
-    sum_at_level_k(root->right, inlevel + 1, level, sum);
+    sum_at_level_k(root->left, currlevel + 1, level, sum);
+    sum_at_level_k(root->right, currlevel + 1, level, sum);
 }
 
 int main() {

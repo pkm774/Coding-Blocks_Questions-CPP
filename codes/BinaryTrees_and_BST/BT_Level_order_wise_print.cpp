@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
-#include <map>
+#include <unordered_map>
+
+#define endl '\n'
 
 class TreeNode
 {
@@ -56,7 +58,7 @@ TreeNode* buildtree_boolean() {
 }
 
 void create_array_list(TreeNode* root, int level,
-	std::map<int, std::vector<int>>& map) {
+	std::unordered_map<int, std::vector<int>>& map) {
 
 	// --> base case
 	if (!root) {
@@ -75,23 +77,26 @@ void create_array_list(TreeNode* root, int level,
 	create_array_list(root->right, level + 1, map);
 }
 
-void print_array_list(std::map<int, std::vector<int>>& map) {
+void print_array_list(std::unordered_map<int, std::vector<int>>& map) {
 
     for (int i = 0; i < map.size(); ++i) {
         for (int j = 0; j < map[i].size(); ++j) {
             std::cout << map[i][j] << " ";
         }
-        std::cout << std::endl;
+        std::cout << endl;
     }
 }
 
 int main() {
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(0);
+
     // Create binary tree
     TreeNode* root = buildtree_boolean();
 
     // Created an ordered map having key as int
     // and value as vector.
-    std::map<int, std::vector<int>> map;
+    std::unordered_map<int, std::vector<int>> map;
 
     create_array_list(root, 0, map);
 

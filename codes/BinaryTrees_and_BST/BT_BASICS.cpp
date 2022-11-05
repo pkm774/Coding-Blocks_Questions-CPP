@@ -1,30 +1,34 @@
-#include<iostream>
-#include<stack>
-#include<queue>
-#include<string>
-#include<algorithm>
+#include <iostream>
+#include <stack>
+#include <queue>
+#include <string>
+#include <algorithm>
 
 /*-----------------------------------------------------------------------
 							TREE-NODE DEFINATION
 ------------------------------------------------------------------------*/
 
-class TreeNode {
+class TreeNode
+{
 public:
 	int val;
-	TreeNode* left;
-	TreeNode* right;
+	TreeNode *left;
+	TreeNode *right;
 
-	TreeNode() {
+	TreeNode()
+	{
 		val = 0;
 		left = NULL;
 		right = NULL;
 	}
-	TreeNode(int data) {
+	TreeNode(int data)
+	{
 		val = data;
 		left = NULL;
 		right = NULL;
 	}
-	TreeNode(int data, TreeNode* left, TreeNode* right) {
+	TreeNode(int data, TreeNode *left, TreeNode *right)
+	{
 		val = data;
 		this->left = left;
 		this->right = right;
@@ -35,11 +39,12 @@ public:
 					BT & BST-Utility functions
 ------------------------------------------------------------------------*/
 
-int height(TreeNode* root)
+int height(TreeNode *root)
 {
 	// --> base case
 	// When root == NULL
-	if (!root) {
+	if (!root)
+	{
 		return 0;
 	}
 
@@ -58,29 +63,32 @@ int height(TreeNode* root)
 
 // Function to build Simple Binary Tree using pre-oRDER algorithm.
 // Input of root node value will be accepted until -1 get inserted.
-TreeNode* buildtree_preOrder() {
+TreeNode *buildtree_preOrder()
+{
 	int data = 0;
 	std::cin >> data; // 8 10 1 -1 -1 6 4 -1 -1 7 -1 -1 3 -1 14 13 -1 -1 -1
 
 	// Terminate in case of -1
-	if (data == -1) {
+	if (data == -1)
+	{
 		return NULL;
 	}
 
 	// Create a root node and populate data
-	TreeNode* root = new TreeNode(data);
+	TreeNode *root = new TreeNode(data);
 	// Recursion call for left and right nodes
-	root->left = buildtree_preOrder(); //lst
-	root->right = buildtree_preOrder(); //rst
+	root->left = buildtree_preOrder();	// lst
+	root->right = buildtree_preOrder(); // rst
 
 	return root;
 }
 
 // Function to build simple Binary Tree using Pre-oRDER algorithm.
 // Input of child nodes value will be accepted based on true and false.
-TreeNode* buildtree_preOrder_boolean() {
+TreeNode *buildtree_preOrder_boolean()
+{
 	// root node head.
-	TreeNode* root = NULL;
+	TreeNode *root = NULL;
 
 	// data for node value
 	int data = 0;
@@ -97,13 +105,15 @@ TreeNode* buildtree_preOrder_boolean() {
 	root = new TreeNode(data);
 	// Get boolean for left child
 	std::cin >> lchild;
-	if (lchild == "true") {
-		root->left = buildtree_preOrder_boolean();//lst
+	if (lchild == "true")
+	{
+		root->left = buildtree_preOrder_boolean(); // lst
 	}
 	// Get boolean for right child
 	std::cin >> rchild;
-	if (rchild == "true") {
-		root->right = buildtree_preOrder_boolean();//rst
+	if (rchild == "true")
+	{
+		root->right = buildtree_preOrder_boolean(); // rst
 	}
 
 	return root;
@@ -111,9 +121,10 @@ TreeNode* buildtree_preOrder_boolean() {
 
 // Function to build simple Binary Tree using leve-oRDER algorithm.
 // Input of root node value will be accepted until -1 get inserted.
-TreeNode* buildtree_levelOrder() {
+TreeNode *buildtree_levelOrder()
+{
 	// Create new root node
-	TreeNode* root = NULL;
+	TreeNode *root = NULL;
 
 	// data for node value
 	int data = 0;
@@ -133,12 +144,14 @@ TreeNode* buildtree_levelOrder() {
 	*/
 
 	// If data is -1 means no root node and return NULL.
-	if (data == -1) {
+	if (data == -1)
+	{
 		return root;
 	}
-	else {
+	else
+	{
 		// Queue for level order value pushing.
-		std::queue<TreeNode*> queue;
+		std::queue<TreeNode *> queue;
 
 		// Populate root node with the data.
 		root = new TreeNode(data);
@@ -148,9 +161,10 @@ TreeNode* buildtree_levelOrder() {
 
 		// Check until the queue become empty,
 		// means left and right have been populated with values.
-		while (!queue.empty()) {
+		while (!queue.empty())
+		{
 			// Save root node data in front node
-			TreeNode* front = queue.front();
+			TreeNode *front = queue.front();
 
 			// Empty queue for left child and right child
 			queue.pop();
@@ -161,13 +175,15 @@ TreeNode* buildtree_levelOrder() {
 			std::cin >> lchild >> rchild;
 
 			// Check -1 in input for lchild
-			if (lchild != -1) {
+			if (lchild != -1)
+			{
 				front->left = new TreeNode(lchild);
 				queue.push(front->left);
 			}
 
 			// Check -1 in input for rchild
-			if (rchild != -1) {
+			if (rchild != -1)
+			{
 				front->right = new TreeNode(rchild);
 				queue.push(front->right);
 			}
@@ -181,14 +197,18 @@ TreeNode* buildtree_levelOrder() {
 // 1. build_BST()  ,  2. Insert_In_BST()
 
 // Helper Function to create a BST from preorder input value
-TreeNode* Insert_In_BST(TreeNode*& root, int val) {
-	if (!root) {
+TreeNode *Insert_In_BST(TreeNode *&root, int val)
+{
+	if (!root)
+	{
 		root = new TreeNode(val);
 	}
-	else if (val <= root->val) {
+	else if (val <= root->val)
+	{
 		root->left = Insert_In_BST(root->left, val);
 	}
-	else {
+	else
+	{
 		root->right = Insert_In_BST(root->right, val);
 	}
 
@@ -196,10 +216,12 @@ TreeNode* Insert_In_BST(TreeNode*& root, int val) {
 }
 // Base function to create a BST
 // Required : Insert_In_BST()
-TreeNode* build_BST(std::vector<int>& vector) {
-	TreeNode* root = NULL;
+TreeNode *build_BST(std::vector<int> &vector)
+{
+	TreeNode *root = NULL;
 
-	for (int i = 0; i < vector.size(); ++i) {
+	for (int i = 0; i < vector.size(); ++i)
+	{
 		Insert_In_BST(root, vector[i]);
 	}
 
@@ -214,15 +236,18 @@ TreeNode* build_BST(std::vector<int>& vector) {
 // Helper Function to print node value at k level.
 // In Decreasing order. Print only when level becomes
 // zero from non zero int value.
-void print_at_kLevel(TreeNode* root, int level) {
+void print_at_kLevel(TreeNode *root, int level)
+{
 	// --> base case
-	if (!root) {
+	if (!root)
+	{
 		return;
 	}
 
 	// --> Task
 	// Print node value if level is or becomes 0;
-	if (level == 0) {
+	if (level == 0)
+	{
 		std::cout << root->val << " ";
 		return;
 	}
@@ -235,15 +260,18 @@ void print_at_kLevel(TreeNode* root, int level) {
 // Helper Function to push node value in stack at k level.
 // In Decreasing order. Push only when level becomes
 // zero from non zero int value.
-void push_level_in_stack(std::stack<int>& stack, TreeNode* root, int level) {
+void push_level_in_stack(std::stack<int> &stack, TreeNode *root, int level)
+{
 	// --> base case
-	if (!root) {
+	if (!root)
+	{
 		return;
 	}
 
 	// --> Task
 	// Push node value if level is or becomes 0;
-	if (level == 0) {
+	if (level == 0)
+	{
 		stack.push(root->val);
 	}
 
@@ -254,29 +282,34 @@ void push_level_in_stack(std::stack<int>& stack, TreeNode* root, int level) {
 
 // Function to print levels in ZigZag manner.
 // Required : print_at_kLevel(),push_level_in_stack()
-void Print_Zig_Zag(TreeNode* root) {
+void Print_Zig_Zag(TreeNode *root)
+{
 	// Declare and Initialize top level as zero
 	// Because tree with one node only have 0 level.
 	int top_level = 0;
 	// Declare and Initialize bottom level as total height.
 	int bottom_level = height(root);
-	
+
 	// Iterate from 0 to height - 1;
-	for (int i = top_level; i < bottom_level; ++i) {
-		if (i % 2 == 0) {
+	for (int i = top_level; i < bottom_level; ++i)
+	{
+		if (i % 2 == 0)
+		{
 			// If i is even, print the level normally.
 			print_at_kLevel(root, i);
 		}
 		// Else first push level into the stack
 		// it will be stored in reverse manner,
 		// then print the stack from top.
-		else {
+		else
+		{
 			// Declare empty stack.
 			std::stack<int> stack;
 			// Push all the same level nodes into the stack.
 			push_level_in_stack(stack, root, i);
 			// While stack is not empty, print and pop
-			while (!stack.empty()) {
+			while (!stack.empty())
+			{
 				std::cout << stack.top() << " ";
 				stack.pop();
 			}
@@ -285,17 +318,17 @@ void Print_Zig_Zag(TreeNode* root) {
 }
 //--------------------------------------------------------------------------
 
-
-
 /*-----------------------------------------------------------------------
 					BT & BST-Output & print Functions
 ------------------------------------------------------------------------*/
 
 // Function to print tree in pre-oRDER
-void preOrderPrint(TreeNode* root) {
+void preOrderPrint(TreeNode *root)
+{
 	// --> base case
 	// When root == NULL
-	if (!root) {
+	if (!root)
+	{
 		return;
 	}
 
@@ -309,10 +342,12 @@ void preOrderPrint(TreeNode* root) {
 }
 
 // Function to print tree in in-oRDER
-void inOrderPrint(TreeNode* root) {
+void inOrderPrint(TreeNode *root)
+{
 	// --> base case
 	// When root == NULL
-	if (!root) {
+	if (!root)
+	{
 		return;
 	}
 
@@ -326,10 +361,12 @@ void inOrderPrint(TreeNode* root) {
 }
 
 // Function to print tree in post-oRDER
-void postOrderPrint(TreeNode* root) {
+void postOrderPrint(TreeNode *root)
+{
 	// --> base case
 	// When root == NULL
-	if (!root) {
+	if (!root)
+	{
 		return;
 	}
 
@@ -343,19 +380,23 @@ void postOrderPrint(TreeNode* root) {
 }
 
 // Function to print tree in diagram
-void prettyPrintTree(TreeNode* node, std::string prefix = "", bool isLeft = true) {
-	if (node == nullptr) {
+void prettyPrintTree(TreeNode *node, std::string prefix = "", bool isLeft = true)
+{
+	if (node == nullptr)
+	{
 		std::cout << "Empty tree";
 		return;
 	}
 
-	if (node->right) {
+	if (node->right)
+	{
 		prettyPrintTree(node->right, prefix + (isLeft ? "|   " : "    "), false);
 	}
 
 	std::cout << prefix + (isLeft ? "|... " : "|''' ") + std::to_string(node->val) + "\n";
 
-	if (node->left) {
+	if (node->left)
+	{
 		prettyPrintTree(node->left, prefix + (isLeft ? "    " : "|   "), true);
 	}
 }
@@ -364,10 +405,11 @@ void prettyPrintTree(TreeNode* node, std::string prefix = "", bool isLeft = true
 							Main Driver
 ------------------------------------------------------------------------*/
 
-int main() {
+int main()
+{
 	// Create Simple Binary Tree using pre-oRDER method
 	// and point it to root1 Node
-	TreeNode* root1 = buildtree_preOrder();
+	TreeNode *root1 = buildtree_preOrder();
 
 	// Pre-Order Printing of root1 tree.
 	preOrderPrint(root1);
@@ -383,7 +425,7 @@ int main() {
 
 	// Create Simple Binary Tree using level-oRDER method
 	// and point it to root2 Node
-	TreeNode* root2 = buildtree_levelOrder();
+	TreeNode *root2 = buildtree_levelOrder();
 	std::cout << std::endl;
 	prettyPrintTree(root2);
 

@@ -32,6 +32,11 @@ public:
 	}
 };
 
+
+/***************************************************************************************
+*                               Approach Using Hash Map
+****************************************************************************************/
+
 TreeNode* create_tree_InPre(std::vector<int>& preorder, std::vector<int>& inorder,
 	std::unordered_map<int, int>& map, int preStart, int preEnd, int inStart, int inEnd) {
 
@@ -61,6 +66,53 @@ TreeNode* from_inorder_and_preorder(std::vector<int>& preorder,
 	}
 
 	return create_tree_InPre(preorder, inorder, map, preStart, preEnd, inStart, inEnd);
+}
+
+/***************************************************************************************
+*                                Normal Approach
+****************************************************************************************/
+
+int FindPosition(std::vector<int>& inorder, int element) {
+	for (int k = 0; k < inorder.size(); ++k) {
+		if (inorder[k] == element)
+			return k;
+	}
+	return -1;
+}
+
+TreeNode* Create(std::vector<int>& preorder, std::vector<int>& inorder,
+	int& preStart, int preEnd, int inStart, int inEnd) {
+
+	// --> Base Case
+	if (preStart > preEnd || inStart > inEnd) {
+		return nullptr;
+	}
+
+	// Get preorder[preStart] element from
+	// preorder vector with the help of preStart index
+	int element = preorder[preStart++];
+	// Create root node from that element.
+	TreeNode* root = new TreeNode(element);
+	// Now get the position of that element in inorder
+	// vector and use it for dividing inorder for
+	// left and right nodes.
+	int position = FindPosition(inorder, element);
+
+	// --> Recursive case
+	root->left = Create(preorder, inorder, preStart, preEnd, inStart, position - 1);
+	root->right = Create(preorder, inorder, preStart, preEnd, position + 1, inEnd);
+
+	return root;
+}
+
+TreeNode* buildTree(std::vector<int>& preorder, std::vector<int>& inorder) {
+	// Set variables for start and last index of preorder vector
+	int preStart = 0, preEnd = preorder.size() - 1;
+
+	// Set variables for start and last index of inorder vector
+	int inStart = 0, inEnd = inorder.size() - 1;
+
+	return Create(preorder, inorder, preStart, preEnd, inStart, inEnd);
 }
 
 // Function to print tree in pre-oRDER
@@ -100,7 +152,11 @@ int main() {
 		std::cin >> inorder[i];
 	}
 
-	TreeNode* root = from_inorder_and_preorder(preorder, inorder);
+	// Approach using HasMap
+	// TreeNode* root = from_inorder_and_preorder(preorder, inorder);
+
+	// Normal Approach
+	TreeNode* root = buildTree(preorder, inorder);
 
 	preOrderPrint(root);
 

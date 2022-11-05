@@ -93,8 +93,8 @@ TreeNode* buildtree_levelOrder() {
 	return root;
 }
 
-void Tree_top_view(TreeNode* root, int hdistance,
-	std::map<int, int>& map) {
+void Tree_bottom_view(TreeNode* root, int hdistance, int level,
+	std::map<int, std::pair<int, int>>& map) {
 
 	// --> base case
 	if (!root) {
@@ -102,40 +102,47 @@ void Tree_top_view(TreeNode* root, int hdistance,
 	}
 
 	// --> task
-	// If value at hdistance does not exist (equal to end)
-	// store val at hdistance key. If value at hdistance exist
-	// then if condition will not work and the program will
-	// further check for Left child and Right child.
-	if (map.find(hdistance) == map.end())
-	// if (!map.count(hdistance))
+	// If current level is greater than or equal to the level
+	// at current hdistance (i.e, hdistance.first),
+	// store the current level with value of the node
+	// with hdistance as key.
+	if (level >= map[hdistance].first)
 	{
 		// Save root->val at level key.
-		map[hdistance] = root->val;
+		map[hdistance] = { level, root->val };
 	}
+
+	// If above 'if condition' fails, it means their is already
+	// a value stored at the greater level compared to current level
+	// at hdistance.
 
 	// --> recursive case
 	// Call for left child
-	Tree_top_view(root->left, hdistance - 1, map);
+	Tree_bottom_view(root->left, hdistance - 1, level + 1, map);
 	// Call for right child
-	Tree_top_view(root->right, hdistance + 1, map);
+	Tree_bottom_view(root->right, hdistance + 1, level + 1, map);
 }
 
 int main() {
-	// HashMap for storing distance and node value.
+	// HashMap for storing distance and pair value.
 	// First element 'distance' will be unique and
-	// sorted as it is the key in map, root->val will be
-	// the second element of map stored according to key(distance);
-	std::map<int, int> map;
+	// sorted as it is the key in map. Pair will hold
+	// level of the node and root->val at current node.
+	std::map<int, std::pair<int, int>> map;
 
 	// Build BT by level order input
 	TreeNode* root = buildtree_levelOrder();
 
 	// Store top node elements in map
-	Tree_top_view(root, 0, map);
+	Tree_bottom_view(root, 0, 0, map);
 
-	// Print elements, only root->val
+	// Print elements, only root->val i.e,
+	// node values stored in the map.
 	for (auto& it : map) {
-		std::cout << it.second << " ";
+		// it.second refers to the pair in hashmap and
+		// it.second.second refers to the second value of pair
+		// which contains node data.
+		std::cout << it.second.second << " ";
 	}
 
 	return 0;
@@ -143,14 +150,19 @@ int main() {
 
 /*
 ALGORITHM :
-root node will be at 0 horizontal distance i.e, (hdistance = 0).
-root->left will be at horizontal distance - 1. (Negative indexing)
-root->right will be at horizontal distance + 1. (Positive indexing)
+root node will be at 0 horizontal distance i.e, (hdistance = 0) and at 0 level i.e, (level = 0).
+root->left will be at horizontal distance - 1 and at level + 1. (Negative indexing) (increment in level)
+root->right will be at horizontal distance + 1 and at level + 1. (Positive indexing) (increment in level)
+
+If current level is greater than or equal to the level stored at the current distance
+then store or replace the current value and current level at the current dostance.
+Else go for left and right child.
 */
 
 /*
+
 Problem :
-Given a binary tree , print the nodes in left to right manner as visible from above the tree
+Given a binary tree , print the nodes in left to right manner as visible from below the tree.
 
 Input Format :
 Level order input for the binary tree will be given.
@@ -159,12 +171,12 @@ Constraints :
 No of nodes in the tree can be less than or equal to 10^7
 
 Output Format :
-A single line containing space separated integers representing the top view of the tree
+A single line containing space separated integers representing the bottom view of the tree
 
 Sample Input :
-1 2 3 4 5 6 -1 -1 -1 -1 -1 -1 -1
+1 2 3 5 -1 4 -1 -1 6 -1 -1 -1 7 -1 -1
 
 Sample Output :
-4 2 1 3
+5 6 7 3
 
 */

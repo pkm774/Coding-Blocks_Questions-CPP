@@ -63,30 +63,38 @@ TreeNode* from_inorder_and_preorder(std::vector<int>& preorder, std::vector<int>
 	return create_tree_InPre(preorder, inorder, map, preStart, preEnd, inStart, inEnd);
 }
 
-bool Is_BST(TreeNode* root) {
-	// --> base case
+// The idea is to use pointers instead of int
+// because nullptr turns to be 0 when compared.
+bool checkBST(TreeNode *root, int *min, int *max)
+{
+	// --> Base Case
 	if (!root) {
 		return true;
 	}
 
-	// --> task
-	// Check for left child node
-	if ((root->left) && (root->left->val > root->val)) {
-		return false;
-	}
-	// Check for right child node
-	if ((root->right) && (root->right->val < root->val)) {
+	// If min node exist (left child) and
+	// it's value is greater than root node
+	// then return false.
+	if (min && root->val <= *min){
 		return false;
 	}
 
-	// --> recursive case
-	// Check for LST and RST
-	if (!Is_BST(root->left) || !Is_BST(root->right)) {
+	// If max node exist (right child) and
+	// it's value is smaller than root node
+	// then return false.
+	if (max && root->val >= *max){
 		return false;
 	}
 
-	// Return true if above condition fails.
-	return true;
+	// Check for both lST ans RST
+	// For LST, we will pass root->left as root node,
+	// min as minimum value for LST, address of root->val as
+	// maximum value for LST.
+	return checkBST(root->left, min, &(root->val))
+	// For RST, we will pass root->right as root node,
+	// address of root->val as minimum value for RST,
+	// and max as maximum value for RST.
+	&& checkBST(root->right, &(root->val), max);
 }
 
 int Count_Nodes(TreeNode* root) {
@@ -110,7 +118,7 @@ bool Check_for_bst(TreeNode* root, std::vector<int>& ans) {
 	// --> task
 	// If the node is head root of BST
 	// then calculate and push its number of nodes.
-	if (Is_BST(root)) {
+	if (checkBST(root, nullptr, nullptr)) {
 		ans.push_back(Count_Nodes(root));
 		return true;
 	}

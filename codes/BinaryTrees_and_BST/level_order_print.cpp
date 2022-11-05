@@ -30,7 +30,7 @@ public:
 
         // Vector for storing answers.
         vector<vector<int>> ans;
-        // Queue for holding lvel values
+        // Queue for holding level values
         queue<TreeNode *> q;
 
         q.push(root);
@@ -42,16 +42,16 @@ public:
             vector<int> curr_level;
             while (sz--)
             {
-                TreeNode *root = q.front();
+                TreeNode *node = q.front();
                 q.pop();
-                curr_level.push_back(root->val);
-                if (root->left)
+                curr_level.push_back(node->val);
+                if (node->left)
                 {
-                    q.push(root->left);
+                    q.push(node->left);
                 }
-                if (root->right)
+                if (node->right)
                 {
-                    q.push(root->right);
+                    q.push(node->right);
                 }
             }
 

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include <queue>
 
 #define endl '\n'
 
@@ -87,6 +88,61 @@ void print_array_list(std::unordered_map<int, std::vector<int>>& map) {
     }
 }
 
+// Function for calculating height
+int height(TreeNode* root)
+{
+	// --> base case
+	// When root == NULL
+	if (!root) {
+		return 0;
+	}
+
+	// --> recursive case
+	/* compute the height of each subtree */
+	int lheight = height(root->left);
+	int rheight = height(root->right);
+
+	/* Use the largest value */
+	return std::max(lheight, rheight) + 1;
+}
+
+// Iterative method to do level order traversal
+// line by line
+void printLevelOrder(TreeNode* root)
+{
+    // Base Case
+    if (root == NULL)
+        return;
+ 
+    // Create an empty queue for level order traversal
+    std::queue<TreeNode*> q;
+
+    int theight = height(root);
+ 
+    // Enqueue Root and initialize height
+    q.push(root);
+ 
+    while (q.empty() == false) {
+        // nodeCount (queue size) indicates number
+        // of nodes at current level.
+        int nodeCount = q.size();
+ 
+        // Dequeue all nodes of current level and
+        // Enqueue all nodes of next level
+        while (nodeCount > 0) {
+            TreeNode* node = q.front();
+            std::cout << node->val << " ";
+            q.pop();
+            if (node->left != NULL)
+                q.push(node->left);
+            if (node->right != NULL)
+                q.push(node->right);
+            nodeCount--;
+        }
+        std::cout << endl;
+    }
+}
+
 int main() {
     std::ios_base::sync_with_stdio(false);
     std::cin.tie(0);
@@ -101,6 +157,8 @@ int main() {
     create_array_list(root, 0, map);
 
     print_array_list(map);
+
+    printLevelOrder(root);
 
     return 0;
 }

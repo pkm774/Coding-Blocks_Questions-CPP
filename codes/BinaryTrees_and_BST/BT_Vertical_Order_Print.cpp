@@ -93,7 +93,7 @@ TreeNode* buildtree_levelOrder(int& level) {
 	return root;
 }
 
-void Tree_top_view(TreeNode* root, int level,
+void Tree_top_view(TreeNode* root, int distance,
 	std::map<int, std::vector<int>>& map) {
 
 	// --> base case
@@ -103,20 +103,20 @@ void Tree_top_view(TreeNode* root, int level,
 
 	// --> task
 	// Save root->val inside vector at level key.
-	map[level].push_back(root->val);
+	map[distance].push_back(root->val);
 
 	// --> recursive case
 	// Call for left child
-	Tree_top_view(root->left, level - 1, map);
+	Tree_top_view(root->left, distance - 1, map);
 	// Call for right child
-	Tree_top_view(root->right, level + 1, map);
+	Tree_top_view(root->right, distance + 1, map);
 }
 
 int main() {
 	int tlevel = 0;
 	std::cin >> tlevel;
-	// Initial map for storing level and node value.
-	// First element 'level' will be unique and
+	// Initial map for storing distance and node value.
+	// First element 'distance' will be unique and
 	// sorted as it is the key in map, root->val will be
 	// the second element of map stored according to key(level);
 	std::map<int, std::vector<int>> map;
@@ -140,9 +140,9 @@ int main() {
 
 // ALGORITHM :
 /*
-root node at level 0 will be at 0 position.
-root->left at level 1 will be at -1 position.
-root->right at level 1 will be at 1 position.
+root node will be at 0 distance.
+root->left will be at -1 distance.
+root->right will be at 1 distance.
 */
 
 /*

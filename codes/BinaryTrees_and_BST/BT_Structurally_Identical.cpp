@@ -53,21 +53,28 @@ TreeNode* buildtree_boolean() {
     return root;
 }
 
-bool Structurally_Identical(TreeNode* root1, TreeNode* root2) {
+bool Structurally_Identical(TreeNode *root1, TreeNode *root2)
+{
     // --> base case
-    // if both trees are empty
-    if (!root1 && !root2) {
+    // if both nodes not exist
+    if (!root1 && !root2)
+    {
         return true;
     }
 
-    // if both trees are not empty then compare them
-    if (root1 && root2) {
-        return Structurally_Identical(root1->left, root2->left) &&
-            Structurally_Identical(root1->right, root2->right);
+    // if any one node exist
+    if((!root1 && root2) || (root1 && !root2)){
+        return false;
     }
 
-    // control is here means trees are not identical
-    return false;
+    // if node values are different
+    if (root1->val != root2->val){
+        return false;
+    }
+
+    // recursive case
+    return Structurally_Identical(root1->left, root2->left) &&
+    Structurally_Identical(root1->right, root2->right);
 }
 
 int main() {

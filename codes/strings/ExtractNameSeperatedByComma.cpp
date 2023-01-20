@@ -9,7 +9,8 @@
 /// Out: Prabhat
 ///      Kumar
 ///      Mishra
-int main() {
+int main()
+{
     std::string name = " ";
     int length = 0;
 
@@ -20,19 +21,23 @@ int main() {
     std::string temp{};
     char inp{};
 
-    for (int i = 0; i <= length; ++i) {
+    for (int i = 0; i <= length; ++i)
+    {
         inp = name[i];
 
-        if (inp == ',' || inp == '\0') {
+        if (inp == ',' || inp == '\0')
+        {
             names.push_back(temp);
             temp = "";
         }
-        else {
+        else
+        {
             temp += inp;
         }
     }
 
-    for (int i = 0; i < names.size(); ++i) {
+    for (int i = 0; i < names.size(); ++i)
+    {
         std::cout << names[i] << std::endl;
     }
 

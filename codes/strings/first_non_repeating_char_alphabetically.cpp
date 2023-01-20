@@ -2,19 +2,21 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
     int ascii[256] = {0};
-	string input;
+    string input;
     int n = 0;
-	int count = 0;
+    int count = 0;
 
     cin >> n;
     fflush(stdin);
-	cin >> input;
+    cin >> input;
 
-	for (int i = 0; i < input.length(); ++i) {
-		++ascii[input[i]];
-	}
+    for (int i = 0; i < input.length(); ++i)
+    {
+        ++ascii[input[i]];
+    }
 
     for (int i = 0; i < 256; ++i)
     {
